@@ -1,9 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beige</title>
+    <title>Beige - Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -201,7 +201,7 @@
             box-shadow: 0 0 20px rgba(255, 133, 162, 0.3);
             opacity: 0;
             transform: translateY(50px);
-            transition: all 1s delay 0.5s;
+            transition: all 1s;
         }
 
         #music-player.visible {
@@ -337,7 +337,6 @@
             star.style.left = `${Math.random() * 100}%`;
             star.style.top = `${Math.random() * 100}%`;
             star.style.animationDuration = `${5 + Math.random() * 15}s`;
-            star.style.animationDelay = `${-Math.random() * 20}s`;
             starField.appendChild(star);
         }
 
@@ -345,6 +344,14 @@
         const playIcon = document.getElementById('play-icon');
 
         function startExperience() {
+            // Reproducir música inmediatamente al hacer clic (necesario para navegadores modernos)
+            audio.play().then(() => {
+                updatePlayIcon(true);
+            }).catch(e => {
+                console.log("Error al reproducir audio:", e);
+            });
+
+            // Iniciar transiciones visuales
             document.getElementById('intro-overlay').classList.add('fade-out');
             
             setTimeout(() => {
@@ -354,10 +361,6 @@
                     main.classList.add('visible');
                     document.getElementById('music-player').classList.add('visible');
                 }, 100);
-                
-                // Intentar reproducir audio
-                audio.play().catch(e => console.log("Autoplay blocked, user must interact with player"));
-                updatePlayIcon(true);
             }, 1000);
         }
 
