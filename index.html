@@ -298,13 +298,13 @@
                 <h2 class="text-pink-300 font-bold uppercase tracking-widest text-xs mb-4">Sobre Mí</h2>
                 <div class="flex flex-col gap-4 items-center">
                     <div class="flex items-center bg-black/60 px-4 py-2 rounded-full border border-pink-500/30 w-full justify-center">
-                        <span class="mr-2 text-xs text-pink-100">Nacionalidad:</span>
+                        <span class="mr-2 text-xs text-pink-100">Made In:</span>
                         <img src="https://images.emojiterra.com/twitter/512px/1f1ed-1f1f9.png" class="w-6 h-6">
                     </div>
                     <div class="flex items-center bg-black/60 px-4 py-2 rounded-full border border-pink-500/30 w-full justify-center">
-                        <span class="mr-2 text-xs text-pink-100">Signo:</span>
-                        <span class="text-lg mr-1">💵</span>
-                        <span class="font-bold text-pink-200">Dinero</span>
+                        <span class="mr-2 text-xs text-pink-100">Addicted To:</span>
+                        <img src="https://xatimg.com/image/bkdP11GhVgq6.png" alt="Coquita" class="w-6 h-6 object-contain mr-1">
+                        <span class="font-bold text-pink-200">Coquita de Vidrio</span>
                     </div>
                 </div>
             </div>
@@ -344,7 +344,7 @@
         const playIcon = document.getElementById('play-icon');
 
         function startExperience() {
-            // Reproducir música inmediatamente al hacer clic (necesario para navegadores modernos)
+            // Reproducir música inmediatamente al hacer clic
             audio.play().then(() => {
                 updatePlayIcon(true);
             }).catch(e => {
