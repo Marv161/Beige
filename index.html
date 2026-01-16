@@ -91,7 +91,7 @@
 
         @media (max-width: 768px) {
             .container-site {
-                flex-direction: column-reverse;
+                flex-direction: column; /* Imagen arriba, texto abajo en móvil */
                 height: auto;
                 max-height: none;
                 margin: 20px;
@@ -111,7 +111,17 @@
     <!-- Contenedor Principal Centrado -->
     <div class="container-site flex w-full max-w-5xl h-[75vh] bg-black shadow-[0_0_80px_rgba(0,0,0,1)] overflow-hidden border border-white/10">
         
-        <!-- Sección de Texto (Izquierda) -->
+        <!-- Sección de Imagen (Izquierda) -->
+        <div class="image-area fade-target w-1/2 h-full overflow-hidden">
+            <img 
+                src="https://xatimg.com/image/tMLjMikLMclC.jpg" 
+                alt="Imagen" 
+                class="main-image"
+                onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop'"
+            >
+        </div>
+
+        <!-- Sección de Texto (Derecha) -->
         <div class="text-area fade-target w-1/2 flex flex-col relative p-8 md:p-14 bg-black">
             
             <!-- Texto Vertical Superior -->
@@ -123,9 +133,7 @@
 
             <!-- Información Principal Inferior -->
             <div class="mt-auto relative z-10">
-                <!-- Se ha quitado el texto "Archive" -->
-                
-                <!-- Nombre cambiado a Beige con efecto flicker -->
+                <!-- Nombre Beige con efecto flicker -->
                 <h1 class="flicker-text text-6xl md:text-8xl font-bold mb-3 tracking-tighter leading-none">
                     Beige
                 </h1>
@@ -136,23 +144,11 @@
                     <p class="text-3xl font-light tracking-[0.4em] text-white/90">
                         444
                     </p>
-                    <!-- Se ha quitado la frase de abajo -->
                 </div>
             </div>
-        </div>
-
-        <!-- Sección de Imagen (Derecha) -->
-        <div class="image-area fade-target w-1/2 h-full overflow-hidden">
-            <img 
-                src="https://xatimg.com/image/tMLjMikLMclC.jpg" 
-                alt="Imagen" 
-                class="main-image"
-                onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop'"
-            >
         </div>
 
     </div>
 
 </body>
 </html>
-
