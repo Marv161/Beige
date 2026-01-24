@@ -4,151 +4,567 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beige</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Iconos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Noto+Sans+JP:wght@300;700&display=swap');
-
+        /* Configuración base */
         body {
-            background-color: black;
+            background-color: #000000;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #1a0000 0%, #000000 70%),
+                linear-gradient(0deg, rgba(255,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,0,0,0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
             color: white;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
             margin: 0;
+            height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            flex-direction: column;
         }
 
-        /* Efecto de parpadeo (flicker) para el nombre */
-        @keyframes flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                opacity: 1;
-                text-shadow: 0 0 4px #fff, 0 0 11px #fff;
-            }
-            20%, 24%, 55% {
-                opacity: 0.3;
-                text-shadow: none;
-            }
+        /* Tipografía Gamer */
+        .font-gamer {
+            font-family: 'Orbitron', sans-serif;
         }
 
-        .flicker-text {
-            animation: flicker 3s infinite;
-        }
-
-        /* Estilo para el texto japonés con el efecto de rotación de degradado y glow */
-        .vertical-text {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
+        .font-jp {
             font-family: 'Noto Sans JP', sans-serif;
-            
-            background: linear-gradient(
-                90deg, 
-                #fcfcfc 0%, 
-                #9c9695 15%, 
-                #fcfcfc 30%, 
-                #9c9695 45%, 
-                #fcfcfc 60%, 
-                #9c9695 75%, 
-                #ffe3ef 90%, 
-                #9c9695 100%
-            );
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            
-            filter: drop-shadow(0 0 12px rgba(0, 0, 1, 1));
-            animation: gradient-rotation 6s linear infinite;
         }
 
-        @keyframes gradient-rotation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Transiciones suaves para los efectos de hover cruzado */
-        .fade-target {
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
-        }
-
-        /* Hover: Imagen -> Texto se oscurece */
-        .container-site:has(.image-area:hover) .text-area {
-            opacity: 0.1;
-            filter: blur(2px) grayscale(100%);
-        }
-
-        /* Hover: Texto -> Imagen se oscurece */
-        .container-site:has(.text-area:hover) .image-area {
-            opacity: 0.2;
-            filter: grayscale(100%) brightness(0.3);
-        }
-
-        .main-image {
+        /* Efecto de Scanlines (TV vieja) */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.3) 50%,
+                rgba(0,0,0,0.3)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.4;
         }
 
-        @media (max-width: 768px) {
-            .container-site {
-                flex-direction: column; /* Imagen arriba, texto abajo en móvil */
-                height: auto;
-                max-height: none;
-                margin: 20px;
-            }
-            .text-area, .image-area {
-                width: 100%;
-                height: 450px;
-            }
-            .vertical-text {
-                writing-mode: horizontal-tb;
-            }
+        /* Texto Brillante Neon Blanco Puro (Solid White) */
+        .neon-white-glow {
+            color: white; 
+            text-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.8),
+                0 0 30px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Texto Brillante Neon Rojo (LVL) */
+        .neon-text-red {
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #ff0000,
+                0 0 20px #ff0000;
+        }
+
+        /* Estilo para los textos flotantes "BEIGE" laterales */
+        .beige-floater {
+            position: absolute;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: transparent; /* Sin fondo */
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6); /* Borde blanco */
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); /* Glow suave */
+            pointer-events: none;
+            z-index: 15; /* Detrás de la imagen principal */
+            opacity: 0;
+            animation: float-beige 8s linear forwards;
+            letter-spacing: 2px;
+        }
+
+        @keyframes float-beige {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(-50px) scale(1.1); }
+        }
+
+        /* Animación flotante para la imagen principal */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .character-img {
+            animation: float 5s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.3)); 
+            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+        }
+
+        /* Botones Nav */
+        .nav-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding-bottom: 2px;
+        }
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background-color: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
+            transition: left 0.3s ease;
+        }
+        .nav-btn:hover::before {
+            left: 0;
+        }
+        .nav-btn:hover {
+            color: #ffcccc;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+        }
+
+        /* Tarjetas de texto abajo */
+        .info-card {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 0, 0, 0.6);
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        /* --- MODALES POSICIONADOS --- */
+        .nav-item-container {
+            position: relative; 
+        }
+
+        .popup-modal {
+            position: absolute;
+            top: 150%; 
+            left: 0;    
+            
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid #ff0000;
+            padding: 20px;
+            z-index: 100;
+            
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            min-width: 300px; 
+            width: max-content; 
+        }
+        
+        .popup-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Botón de Cerrar (X) */
+        .close-btn {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-btn:hover {
+            color: #ff0000;
+        }
+
+        /* Música Spinner y Control */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .disk-spin {
+            animation: spin-slow 8s linear infinite;
+        }
+        /* Clase para detener la animación cuando está pausado */
+        .disk-paused {
+            animation-play-state: paused !important;
         }
     </style>
 </head>
-<body class="p-4 md:p-12">
+<body class="selection:bg-red-900 selection:text-white">
 
-    <!-- Contenedor Principal Centrado -->
-    <div class="container-site flex w-full max-w-5xl h-[75vh] bg-black shadow-[0_0_80px_rgba(0,0,0,1)] overflow-hidden border border-white/10">
+    <!-- AUDIO ELEMENT (Oculto) -->
+    <audio id="bg-music" src="musica.mp3" loop></audio>
+
+    <!-- Efecto de pantalla -->
+    <div class="scanlines"></div>
+
+    <!-- Navegación Superior -->
+    <nav class="w-full flex justify-between items-center p-6 z-40 relative max-w-7xl mx-auto">
         
-        <!-- Sección de Imagen (Izquierda) -->
-        <div class="image-area fade-target w-1/2 h-full overflow-hidden">
-            <img 
-                src="https://xatimg.com/image/tMLjMikLMclC.jpg" 
-                alt="Imagen" 
-                class="main-image"
-                onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop'"
-            >
-        </div>
-
-        <!-- Sección de Texto (Derecha) -->
-        <div class="text-area fade-target w-1/2 flex flex-col relative p-8 md:p-14 bg-black">
+        <!-- Grupo de Botones a la Izquierda -->
+        <div class="flex space-x-12 font-gamer text-sm tracking-widest">
             
-            <!-- Texto Vertical Superior -->
-            <div class="absolute right-6 top-8">
-                <h2 class="vertical-text text-5xl md:text-7xl font-bold tracking-tighter">
-                    ライトブラウン
-                </h2>
-            </div>
-
-            <!-- Información Principal Inferior -->
-            <div class="mt-auto relative z-10">
-                <!-- Nombre Beige con efecto flicker -->
-                <h1 class="flicker-text text-6xl md:text-8xl font-bold mb-3 tracking-tighter leading-none">
-                    Beige
-                </h1>
+            <!-- CONTENEDOR ABOUT ME -->
+            <div class="nav-item-container">
+                <button onclick="toggleModal('aboutModal')" class="nav-btn uppercase opacity-90 hover:opacity-100">About Me</button>
                 
-                <div class="h-[1px] w-16 bg-white/40 mb-6"></div>
-                
-                <div class="space-y-4">
-                    <p class="text-3xl font-light tracking-[0.4em] text-white/90">
-                        444
-                    </p>
+                <!-- Modal About Me -->
+                <div id="aboutModal" class="popup-modal rounded-lg border-l-4 border-l-red-600">
+                    <button onclick="closeAllModals()" class="close-btn">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                    <div class="flex items-center space-x-4 pt-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Flag_of_Haiti.svg/2560px-Flag_of_Haiti.svg.png" 
+                             alt="Haiti Flag" 
+                             class="w-16 h-10 object-cover shadow-lg border border-white/20">
+                        <div>
+                            <h4 class="font-gamer text-xl text-white">Proudly Haitian</h4>
+                            <p class="text-xs text-red-400 uppercase tracking-widest">Origin & Roots</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- CONTENEDOR MUSIC -->
+            <div class="nav-item-container">
+                <button onclick="toggleModal('musicModal')" class="nav-btn uppercase opacity-90 hover:opacity-100">Music</button>
+                
+                <!-- Modal Music -->
+                <div id="musicModal" class="popup-modal rounded-xl border border-red-900/50 bg-black/90 backdrop-blur-xl">
+                    <button onclick="closeAllModals()" class="close-btn">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                    <div class="flex items-center space-x-4 pt-2">
+                        <div class="relative w-20 h-20 flex-shrink-0">
+                            <!-- Agregamos ID al disco para controlar animación -->
+                            <img id="music-disk" src="https://images.genius.com/455571db6a86e17e6af2a030b70ea903.1000x1000x1.png" 
+                                 alt="Album Art" 
+                                 class="w-full h-full object-cover rounded-full border-2 border-red-500/30 disk-spin disk-paused">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-4 h-4 bg-black rounded-full border border-gray-700"></div>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-[150px]">
+                            <h4 class="font-gamer text-lg text-white truncate">11:11</h4>
+                            <p class="text-xs text-red-400 font-bold uppercase tracking-wider">Roa</p>
+                            
+                            <!-- Fake Progress Bar -->
+                            <div class="mt-3 w-full bg-gray-800 h-1 rounded-full overflow-hidden">
+                                <div class="bg-red-500 h-full w-2/3 relative">
+                                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_5px_white]"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-gray-500 mt-1 font-mono">
+                                <span>2:14</span>
+                                <span>3:20</span>
+                            </div>
+                        </div>
+                        <!-- Botón de Reproducción Funcional -->
+                        <button id="player-control-btn" onclick="togglePlayMusic()" class="p-2 text-white hover:text-red-400 transition-colors">
+                            <i id="player-icon" data-lucide="play-circle" class="w-8 h-8"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
+        <!-- Estatus del Jugador (Derecha) -->
+        <div class="flex items-center space-x-4">
+            <div class="flex flex-col items-end mr-2">
+                <span class="text-[10px] text-red-500 uppercase tracking-widest font-bold">Player Status</span>
+                <div class="h-1.5 w-32 bg-gray-900 rounded-full overflow-hidden border border-red-900/50">
+                    <div class="h-full w-[100%] bg-gradient-to-r from-red-900 to-red-500 shadow-[0_0_10px_red]"></div>
+                </div>
+            </div>
+            <span class="font-gamer text-3xl font-bold italic neon-text-red">LVL 444</span>
+        </div>
+    </nav>
 
+    <!-- Área Principal (Hero) -->
+    <main class="flex-grow relative flex items-center justify-center w-full h-full overflow-hidden perspective-1000">
+        
+        <!-- Elementos decorativos de fondo -->
+        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+            <div class="absolute top-20 left-10 w-32 h-32 border border-red-900/30 rounded-full border-dashed animate-[spin_10s_linear_infinite]"></div>
+            <div class="absolute bottom-20 right-10 w-48 h-48 border border-red-900/20 rotate-45"></div>
+            <div class="absolute top-1/2 right-10 font-gamer text-9xl opacity-5 writing-vertical-lr select-none text-red-600">SYSTEM</div>
+        </div>
+
+        <!-- Texto de Fondo Dividido "BEI - GE" (Blanco Solido) -->
+        <h1 id="bg-text-left" class="absolute z-10 font-gamer text-[18vw] font-black neon-white-glow select-none leading-none tracking-widest transition-transform duration-100" 
+            style="opacity: 0.9; left: 5%; top: 50%; transform: translateY(-50%);">
+            BEI
+        </h1>
+        
+        <h1 id="bg-text-right" class="absolute z-10 font-gamer text-[18vw] font-black neon-white-glow select-none leading-none tracking-widest transition-transform duration-100" 
+            style="opacity: 0.9; right: 5%; top: 50%; transform: translateY(-50%);">
+            GE
+        </h1>
+
+        <!-- Imagen Central (Ajustada a 65vh) -->
+        <div class="absolute z-20 h-[65vh] w-auto bottom-0 transition-transform duration-100 flex justify-center" id="hero-image-container">
+            <img src="https://xatimg.com/image/DXxVRspu9BnF.png" 
+                 alt="Anime Character" 
+                 class="character-img h-full w-auto object-contain pointer-events-none">
+        </div>
+
+        <!-- Efectos de partículas (Círculos y Textos Beige) -->
+        <div class="absolute z-30 w-full h-full pointer-events-none" id="particles"></div>
+    </main>
+
+    <!-- Sección Inferior (Cajas de Texto) -->
+    <footer class="relative z-30 w-full pb-8 px-4 md:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            
+            <!-- Card 1 -->
+            <div class="info-card p-5 flex flex-col justify-between h-auto min-h-[140px] cursor-default group">
+                <div class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 border-b border-white/10 pb-1">
+                    Even though you're not here and you're there
+                </div>
+                <div class="flex-grow flex items-center">
+                    <h3 class="font-jp text-lg font-bold text-white leading-relaxed text-shadow-sm">
+                        その不完全に完璧な欠点に、俺は夢中なんだ。
+                    </h3>
+                </div>
+                <div class="text-right mt-2">
+                    <p class="text-xs text-red-500 italic">''ヤン・ブロック''</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="info-card p-5 flex flex-col justify-between h-auto min-h-[140px] cursor-default group">
+                <div class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 border-b border-white/10 pb-1">
+                    Immortal beloved
+                </div>
+                <div class="flex-grow flex items-center">
+                    <h3 class="font-jp text-lg font-bold text-white leading-relaxed text-shadow-sm">
+                        永遠に私のもの、永遠に君のもの、永遠に私たち二人のもの。
+                    </h3>
+                </div>
+                <div class="text-right mt-2">
+                    <p class="text-xs text-red-500 italic">'' 不滅の恋人''</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="info-card p-5 flex flex-col justify-between h-auto min-h-[140px] cursor-default group">
+                <div class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 border-b border-white/10 pb-1">
+                    Get over us? That will never happen
+                </div>
+                <div class="flex-grow flex items-center">
+                    <h3 class="font-jp text-lg font-bold text-white leading-relaxed text-shadow-sm">
+                        時は流れるけど認めない、俺たちは完璧なコンビだから
+                    </h3>
+                </div>
+                <div class="text-right mt-2">
+                    <p class="text-xs text-red-500 italic">''ロア''</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // --- SISTEMA DE AUDIO ---
+        const audio = document.getElementById('bg-music');
+        const playerIcon = document.getElementById('player-icon');
+        const musicDisk = document.getElementById('music-disk');
+        let musicStarted = false;
+
+        // Función para actualizar la UI del reproductor
+        function updatePlayerUI(isPlaying) {
+            if (isPlaying) {
+                // Cambiar icono a Pausa
+                playerIcon.setAttribute('data-lucide', 'pause-circle');
+                // Girar el disco
+                musicDisk.classList.remove('disk-paused');
+            } else {
+                // Cambiar icono a Play
+                playerIcon.setAttribute('data-lucide', 'play-circle');
+                // Detener el disco
+                musicDisk.classList.add('disk-paused');
+            }
+            lucide.createIcons(); // Refrescar iconos
+        }
+
+        // Función controlada por el botón del modal
+        function togglePlayMusic() {
+            if (audio.paused) {
+                audio.play()
+                    .then(() => {
+                        updatePlayerUI(true);
+                        musicStarted = true;
+                    })
+                    .catch(err => console.log("Error al reproducir:", err));
+            } else {
+                audio.pause();
+                updatePlayerUI(false);
+            }
+        }
+
+        // --- AUTO-PLAY EN PRIMERA INTERACCIÓN ---
+        function initAudioOnInteraction() {
+            if (!musicStarted) {
+                audio.play().then(() => {
+                    musicStarted = true;
+                    updatePlayerUI(true); // Actualizar UI
+                    // Remover listeners para que no se ejecute de nuevo innecesariamente
+                    document.removeEventListener('click', initAudioOnInteraction);
+                    document.removeEventListener('mousemove', initAudioOnInteraction);
+                    document.removeEventListener('keydown', initAudioOnInteraction);
+                }).catch(error => {
+                    console.log("Esperando interacción del usuario para reproducir audio...");
+                });
+            }
+        }
+
+        // Escuchar cualquier interacción inicial
+        document.addEventListener('click', initAudioOnInteraction);
+        document.addEventListener('mousemove', initAudioOnInteraction);
+        document.addEventListener('keydown', initAudioOnInteraction);
+
+
+        // --- LÓGICA DE MODALES ---
+        let activeModal = null;
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            
+            // Si ya hay uno activo y es diferente, ciérralo
+            if (activeModal && activeModal !== modal) {
+                activeModal.classList.remove('active');
+            }
+
+            // Toggle del actual
+            if (modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                activeModal = null;
+            } else {
+                modal.classList.add('active');
+                activeModal = modal;
+            }
+        }
+        
+        function closeAllModals() {
+            if (activeModal) {
+                activeModal.classList.remove('active');
+                activeModal = null;
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (activeModal && !e.target.closest('.popup-modal') && !e.target.closest('.nav-btn')) {
+                activeModal.classList.remove('active');
+                activeModal = null;
+            }
+        });
+
+        // Efecto Parallax (Ajustado para texto dividido)
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+
+            const bgTextLeft = document.getElementById('bg-text-left');
+            const bgTextRight = document.getElementById('bg-text-right');
+            
+            if(bgTextLeft) bgTextLeft.style.transform = `translate(${x * 1.5}px, calc(-50% + ${y * 1.5}px))`;
+            if(bgTextRight) bgTextRight.style.transform = `translate(${x * 1.5}px, calc(-50% + ${y * 1.5}px))`;
+
+            const heroImg = document.getElementById('hero-image-container');
+            heroImg.style.transform = `translateX(${-x * 0.5}px)`;
+        });
+
+        // Contenedor de partículas
+        const particlesContainer = document.getElementById('particles');
+        
+        // 1. Partículas normales
+        function createParticle() {
+            const particle = document.createElement('div');
+            const size = Math.random() * 3;
+            const isRed = Math.random() > 0.7;
+
+            particle.style.position = 'absolute';
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.background = isRed ? '#ff0000' : 'white';
+            particle.style.borderRadius = '50%';
+            particle.style.boxShadow = isRed ? '0 0 5px red' : '0 0 2px white';
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.bottom = '-10px';
+            particle.style.animation = `float ${Math.random() * 4 + 3}s linear`;
+            
+            particlesContainer.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 6000);
+        }
+
+        // 2. Partículas BEIGE
+        function createBeigeFloater() {
+            const el = document.createElement('div');
+            el.innerText = 'BEIGE';
+            el.classList.add('beige-floater');
+            
+            const isLeft = Math.random() > 0.5;
+            if (isLeft) {
+                el.style.left = Math.random() * 20 + 'vw';
+                el.style.transformOrigin = 'left center';
+            } else {
+                el.style.right = Math.random() * 20 + 'vw';
+                el.style.transformOrigin = 'right center';
+            }
+
+            el.style.top = Math.random() * 60 + 20 + 'vh'; 
+            const fontSize = Math.random() * 20 + 14; 
+            el.style.fontSize = fontSize + 'px';
+
+            particlesContainer.appendChild(el);
+            setTimeout(() => { el.remove(); }, 8000);
+        }
+
+        setInterval(createParticle, 150);
+        setInterval(createBeigeFloater, 2500);
+
+    </script>
 </body>
 </html>
